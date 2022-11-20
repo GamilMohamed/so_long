@@ -6,7 +6,7 @@
 /*   By: mgamil <mgamil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 15:14:30 by mgamil            #+#    #+#             */
-/*   Updated: 2022/11/20 06:23:19 by mgamil           ###   ########.fr       */
+/*   Updated: 2022/11/20 17:41:32 by mgamil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_freeloop(char **tab)
 
 int		ft_checkline(char *s)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	if (!s)
@@ -44,7 +44,7 @@ int		ft_checkline(char *s)
 int		ft_checklenmap(int fd, t_map *map)
 {
 	int			i;
-	size_t		len;
+	int		len;
 	char		*s;
 
 	i = 0;
@@ -78,11 +78,11 @@ int		ft_checklenmap(int fd, t_map *map)
 	return (1);
 }
 
-char	**ft_create_tab(size_t x, size_t y, int fd)
+char	**ft_create_tab(int x, int y, int fd)
 {
 	char	**tab;
 	char	*s;
-	size_t		i;
+	int		i;
 
 	i = 0;
 	tab = malloc(sizeof(char *) * (y + 1));
@@ -106,22 +106,22 @@ int		ft_isok(char c)
 {
 	if (c != WALL && c != GROUND && c != PLAYER && c != POLICE && c != COLLECT && c != EXIT && c != '\0')
 	{
-		printf("c=%c\n", c);
+		ft_printf("c=%c\n", c);
 		return 1;
 	}
 	return (0);
 }
 
-void	ft_checktab(char **tab, t_map *map, size_t (*count)[2])
+void	ft_checktab(char **tab, t_map *map, int (*count)[2])
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (i < (map->x * map->y))
 	{
-		if (tab[i/map->x][i%map->x] == EXIT || tab[i/map->x][i%map->x] == COLLECT)
+		if (tab[i/map->x][i%map->x] == EXIT)
 			(*count)[0]++;
-		if (tab[i/map->x][i%map->x] == GROUND)
+		if (tab[i/map->x][i%map->x] == COLLECT)
 			(*count)[1]++;
 		// ft_printf("tab[%i][%i]\n", i/map->x, i%map->x);
 		if (ft_isok(tab[i/map->x][i%map->x]))
@@ -132,74 +132,58 @@ void	ft_checktab(char **tab, t_map *map, size_t (*count)[2])
 		i++;
 	}
 }
-//							6		2		
-int	ft_VIRUS(char ***tab, size_t y, size_t x, t_map *map)
-{
-	size_t col;
-	size_t row;
 
-	col = y;
-	row = x;
-	while ((*tab)[col][x] != WALL && col < map->y)
+void	ft_VIRUS_col(char ***tab, t_map *map, int y, int x, int add)
+{
+	while (y >= 0 && y < map->y - 1 && (*tab)[y][x] != WALL)
 	{
-		(*tab)[col][x] = '*';
-		col++;
+		if (!map->test)
+			map->test = (*tab)[y][x] != '*';
+		(*tab)[y][x] = '*';
+		y += add;
 	}
-	while ((*tab)[y][row] != WALL && row < map->x)
-	{
-		(*tab)[y][row] = '*';
-		row++;
-	}
-	col = y;
-	row = x;
-	while ((*tab)[col][x] != WALL && col < map->y)
-	{
-		(*tab)[col][x] = '*';
-		col--;
-	}
-	while ((*tab)[y][row] != WALL && row < map->x)
-	{
-		(*tab)[y][row] = '*';
-		row--;
-	}
-	return 1;		
 }
 
-size_t	ft_COVID(char ***tab, t_map *map)
+void	ft_VIRUS_row(char ***tab, t_map *map, int y, int x, int add)
 {
-	size_t	i;
-	size_t	stars;
-
-	i = 0;
-	stars = 0;
-	while (i < (map->x * map->y))
+	while (x >= 0 && x < map->x - 1 && (*tab)[y][x] != WALL)
 	{
-		// ft_printf("i=%i\n", i);
-		if ((*tab)[i/map->x][i%map->x] == '*' || (*tab)[i/map->x][i%map->x] == 'P')
-		{
-			stars++;
-
-			ft_VIRUS(tab, i/map->x, i%map->x, map);
-		}
-		i++;
+		if (!map->test)
+			map->test = (*tab)[y][x] != '*';
+		(*tab)[y][x] = '*';
+		x += add;
 	}
-	map->num += 1;
-	return stars;
+}
+
+void	ft_PLAGUE(char **tab, int y, int x, t_map *map)
+{
+	ft_VIRUS_col(&tab, map, y, x, 1);
+	ft_VIRUS_row(&tab, map, y, x, 1);
+	ft_VIRUS_col(&tab, map, y, x, -1);
+	ft_VIRUS_row(&tab, map, y, x, -1);
+}
+
+void	ft_COVID(char ***tab, t_map *map)
+{
+	int	i;
+
+	i = -1;
+	map->test = 0;
+	while (++i < (map->x * map->y))
+		if (((*tab)[i/map->x][i%map->x] == 'P') || ((*tab)[i/map->x][i%map->x] == '*'))
+			ft_PLAGUE((*tab), i/map->x, i%map->x, map);
 }
 
 int	ft_isE(char **tab, t_map *map)
 {
-	size_t i;
+	int i;
+	int e;
 
-	i= 0;
-	while (i < (map->x * map->y))
-	{
-		if (tab[i/map->x][i%map->x] == 'E')
-		{
+	i = -1;
+	e = 0;
+	while (++i < (map->x * map->y))
+		if ((tab[i/map->x][i%map->x] == EXIT) || (tab[i/map->x][i%map->x] == COLLECT))
 			return 1;
-		}
-		i++;
-	}
 	return 0;
 }
 
@@ -208,24 +192,22 @@ int	main(int ac, char **av)
 	int		fd;
 	int		i;
 	char	**tab;
-	size_t	count[2];
-	size_t	stars;
+	int	count[2];
 	t_map	map;
 
-	map.num = 0;
-	stars = 0;
+	map.test = 1;
 	count[0] = 0;
 	count[1] = 0;
 	i = -1;
 	if (ac != 2)
-		return (ft_printf("./so_long maps\n"));
+		return (ft_printf("%g./so_long maps%0\n"));
 	if (open(av[1], O_RDONLY) < 3)
 		return (0);
 	fd = open(av[1], O_RDONLY);
 	if (ft_checklenmap(fd, &map) == 0)
 	{
 		close(fd);
-		return (ft_printf("invalid map\n"));
+		return (ft_printf("%rinvalid map%0\n"));
 	}
 	fd = open(av[1], O_RDONLY);
 	ft_printf("map->x=%i\n", map.x);
@@ -233,27 +215,25 @@ int	main(int ac, char **av)
 	tab = ft_create_tab(map.x, map.y, fd);
 	if (!tab)
 		return (ft_printf("malloc de tab echoue"));
-	// while (tab[++i])
-	// 	printf("tab[%i]=%s\n",i, tab[i]);
 	ft_checktab(tab, &map, &count);
-	if (count[0])
+	if (count[0] == 1 && count[1] > 0)
 	{
-		ft_printf("count[0]=%i\n", count[0]);
 		ft_printf("count[1]=%i\n", count[1]);
 		ft_printf("valid map\n");
-		while (ft_isE(tab, &map))
+		while (ft_isE(tab, &map) && map.test)
 		{
-			stars = ft_COVID(&tab, &map);
-			ft_printf("stars=%i,map.num:%i\n", stars, map.num);
-			
+			ft_COVID(&tab, &map);
+			ft_printf("map.test:%i\n", map.test);
 			i = -1;
 			while (tab[++i])
 				ft_printf("%s\n", tab[i]);
 		}
+		if (map.test == 0)
+			return(ft_printf("%rimpossible d'atteindre collect ou exit%r0"));
 	}
 	else
-		printf("invalid map");
-	printf("OKKKKKKKKKKK");
+		return (ft_printf("%rinvalid map%0"));
+	ft_printf("%gOKKKKKKKKKKK%0");
 	ft_freeloop(tab);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mgamil <mgamil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 15:46:05 by mohazerr          #+#    #+#             */
-/*   Updated: 2022/11/10 14:23:50 by mgamil           ###   ########.fr       */
+/*   Updated: 2022/11/15 02:55:32 by mgamil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int		ft_ptf_putstr(char *s);
 int		ft_ptf_uiputnbr(unsigned int n, int *count);
 int		ft_ptf_puthex(unsigned int nbr, char x, int *count);
 int		ft_ptf_pointer(unsigned long int n, int *count);
+int		ft_ptf_color(char c);
 
 int		ft_showarg(char c, va_list *list);
 

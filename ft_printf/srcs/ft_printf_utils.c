@@ -6,11 +6,11 @@
 /*   By: mgamil <mgamil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 15:50:04 by mohazerr          #+#    #+#             */
-/*   Updated: 2022/11/08 20:24:45 by mgamil           ###   ########.fr       */
+/*   Updated: 2022/11/15 02:46:23 by mgamil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
 int	ft_ptf_putstr(char *s)
 {

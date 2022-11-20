@@ -6,7 +6,7 @@
 /*   By: mgamil <mgamil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 16:04:19 by mohazerr          #+#    #+#             */
-/*   Updated: 2022/11/10 15:02:26 by mgamil           ###   ########.fr       */
+/*   Updated: 2022/11/15 03:06:07 by mgamil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@ int	ft_showarg(char c, va_list *args)
 		ret = ft_ptf_puthex((U_INT)va_arg(*args, long U_INT), c, &ret);
 	else if (c == 'p')
 		ret = ft_ptf_pointer((long U_INT)va_arg(*args, long U_INT), &ret);
+	else if (c == 'r' || c == 'g' || c == '0'
+		|| c == 'y' || c == 'm' || c == 'b')
+		ret = ft_ptf_color(c);
 	else
 		ret = ft_ptf_putchar(c);
 	return (ret);
@@ -72,15 +75,15 @@ int	ft_printf(const char *format, ...)
 
 // int main ()
 // {
-// 	int a, b;
-// 	void *p;
+// 	// int a, b;
+// 	// void *p;
 
-// 	a =	   printf("%c%s%d%i%u%x%X %c%s%d%i%u%x%X %c%s%d%i%u%x%X %c%p\n",
-// 	 'A', "42", 42, 42 ,42 , 42, 42, 'B', "-42", -42, -42 ,-42 ,-42, 42,
-// 	  'C', "0", 0, 0 ,0 ,0, 42, 0, &p);
-// 	b = ft_printf("%c%s%d%i%u%x%X %c%s%d%i%u%x%X %c%s%d%i%u%x%X %c%p\n",
-// 	 'A', "42", 42, 42 ,42 , 42, 42, 'B', "-42", -42, -42 ,-42 ,-42, 42,
-// 	  'C', "0", 0, 0 ,0 ,0, 42, 0, &p);
-
-// 	printf("%i|%i", a, b);
+// 	// a =	   printf("%c%s%d%i%u%x%X %c%s%d%i%u%x%X %c%s%d%i%u%x%X %c%p\n",
+// 	//  'A', "42", 42, 42 ,42 , 42, 42, 'B', "-42", -42, -42 ,-42 ,-42, 42,
+// 	//   'C', "0", 0, 0 ,0 ,0, 42, 0, &p);
+// 	// b = ft_printf("%c%s%d%i%u%x%X %c%s%d%i%u%x%X %c%s%d%i%u%x%X %c%p\n",
+// 	//  'A', "42", 42, 42 ,42 , 42, 42, 'B', "-42", -42, -42 ,-42 ,-42, 42,
+// 	//   'C', "0", 0, 0 ,0 ,0, 42, 0, &p);
+// 	ft_printf("ceci%restuntest");
+// 	// printf("%i|%i", a, b);
 // }
