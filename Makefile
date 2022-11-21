@@ -7,7 +7,12 @@ LIBFT			=	libft.a
 
 PRINTF			=	libftprintf.a
 
-SRCS			=	main.c
+SRCS			=	main.c \
+					srcs/plague.c \
+					srcs/map.c \
+					srcs/misc.c \
+					srcs/game.c \
+					srcs/fillmap.c \
 
 OBJS			=	${SRCS:.c=.o}
 
@@ -21,22 +26,20 @@ CC				=	cc
 
 CFLAGS			=	-Wall -Werror -Wextra
 
-%.o: %.c
-	$(CC) -Wall -Wextra -Werror -I/usr/include -Imlx_linux -g3 -c $< -o $@
+# %.o: %.c
+#	 $(CC) -Wall -Wextra -Werror -I/usr/include -Imlx_linux -g3 -c $< -o $@
 
 all				:	${NAME}
 
 $(NAME): $(OBJS) ${OBJS_GNL}
 	@make -C libft
-	@make -C mlx_linux
 	@make -C ft_printf
 	@cp libft/libft.a .
 	@cp ft_printf/libftprintf.a .
-	$(CC) $(OBJS) ${OBJS_GNL} -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux ${LIBFT} ${PRINTF} -lXext -lX11 -lm -lz -o $(NAME)
+	@cc $(OBJS) ${OBJS_GNL} mlx/libmlx.a mlx/libmlx_Linux.a -L. -lXext -L. -lX11 ${LIBFT} ${PRINTF} -o $(NAME)
 
 
 clean			:
-					make clean -C mlx_linux
 					make clean -C libft
 					make clean -C ft_printf
 					rm -rf ${OBJS} ${OBJS_GNL}

@@ -6,12 +6,12 @@
 /*   By: mgamil <mgamil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 12:38:03 by mohazerr          #+#    #+#             */
-/*   Updated: 2022/11/12 00:37:17 by mgamil           ###   ########.fr       */
+/*   Updated: 2022/11/20 21:40:49 by mgamil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
+
 int	ft_nblen(int n)
 {
 	int	len;
@@ -35,8 +35,6 @@ char	*ft_itoa(int n)
 	char			*str;
 
 	nb = -(n < 0) * (n) + (n > 0) * (n);
-	
-	printf("%i\n", nb);
 	i = (n < 0);
 	len = ft_nblen(n);
 	str = malloc(sizeof(char) * (len + 1));
@@ -53,17 +51,17 @@ char	*ft_itoa(int n)
 	return (str);
 }
 
-int main ()
-{
-	int i;
-	i = -1;
-	while (i++ < 10)
-	{
-		printf("%i %i\n", i, i + 1);
-	}
+// int main ()
+// {
+// 	int i;
+// 	i = -1;
+// 	while (i++ < 10)
+// 	{
+// 		printf("%i %i\n", i, i + 1);
+// 	}
 
-	// while (i++ < 10)
-	// {
-	// 	printf("%i\n", i);
-	// }
-}
+// 	// while (i++ < 10)
+// 	// {
+// 	// 	printf("%i\n", i);
+// 	// }
+// }

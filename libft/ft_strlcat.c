@@ -6,7 +6,7 @@
 /*   By: mgamil <mgamil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 12:40:56 by mohazerr          #+#    #+#             */
-/*   Updated: 2022/11/10 14:58:28 by mgamil           ###   ########.fr       */
+/*   Updated: 2022/11/20 21:41:02 by mgamil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,4 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 // 		testo[i++] = 'p';
 // 	ft_strlcat(test, testo, 15);
 // 	strlcat(test, testo, 15);
-	
-	
 // }
