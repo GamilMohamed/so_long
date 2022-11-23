@@ -6,7 +6,7 @@
 /*   By: mgamil <mgamil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 16:04:19 by mohazerr          #+#    #+#             */
-/*   Updated: 2022/11/15 03:06:07 by mgamil           ###   ########.fr       */
+/*   Updated: 2022/11/22 02:56:22 by mgamil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,14 @@ int	ft_printf(const char *format, ...)
 // {
 // 	// int a, b;
 // 	// void *p;
-
+// 	char *s;
 // 	// a =	   printf("%c%s%d%i%u%x%X %c%s%d%i%u%x%X %c%s%d%i%u%x%X %c%p\n",
 // 	//  'A', "42", 42, 42 ,42 , 42, 42, 'B', "-42", -42, -42 ,-42 ,-42, 42,
 // 	//   'C', "0", 0, 0 ,0 ,0, 42, 0, &p);
 // 	// b = ft_printf("%c%s%d%i%u%x%X %c%s%d%i%u%x%X %c%s%d%i%u%x%X %c%p\n",
 // 	//  'A', "42", 42, 42 ,42 , 42, 42, 'B', "-42", -42, -42 ,-42 ,-42, 42,
 // 	//   'C', "0", 0, 0 ,0 ,0, 42, 0, &p);
-// 	ft_printf("ceci%restuntest");
-// 	// printf("%i|%i", a, b);
+// 	// int a = ft_printf("%s", 113);
+// 	ft_printf("%c\n", '\n');
+// 	printf("%i", printf("%i", ft_printf("13=%i\n", 13)));
 // }

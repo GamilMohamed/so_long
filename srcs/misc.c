@@ -6,7 +6,7 @@
 /*   By: mgamil <mgamil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 22:02:09 by mgamil            #+#    #+#             */
-/*   Updated: 2022/11/21 01:00:41 by mgamil           ###   ########.fr       */
+/*   Updated: 2022/11/23 19:35:34 by mgamil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,12 @@ int	ft_error(int err)
 	else if (err == 2)
 		ft_printf("%rError 2 ->%0 Malloc du tableau incorrect\n");
 	else if (err == 3)
-		ft_printf("%rError 3 ->%0 Impossible d'atteindre l'exit ou un collect\n");
+		ft_printf("%rError 3 ->%0 Impossible d'atteindre l'exit ou collect\n");
 	else if (err == 4)
 		ft_printf("%rError 4 ->%0 chelou\n");
 	else if (err == 5)
 		ft_printf("%yError 5 ->%g ./so_long maps%0\n");
+	else if (err == 6)
+		ft_printf("%mError 6 ->%0 mlx failed\n");
 	return (0);
 }

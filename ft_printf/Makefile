@@ -6,7 +6,7 @@
 #    By: mgamil <mgamil@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/24 20:15:20 by apuchill          #+#    #+#              #
-#    Updated: 2022/11/15 02:59:05 by mgamil           ###   ########.fr        #
+#    Updated: 2022/11/23 18:24:36 by mgamil           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,26 +23,26 @@ OBJS		=	$(subst $(DIR_SRCS), $(DIR_OBJS), $(SRCS:.c=.o))
 
 INCLUDES	=	-I includes
 
-CC			=	gcc
+CC			=	@gcc
 CFLAGS		=	-Wall -Wextra -Werror
 
 all:		$(NAME)
 
 $(DIR_OBJS)/%.o :	$(DIR_SRCS)/%.c
-			mkdir -p $(DIR_OBJS)
+			@mkdir -p $(DIR_OBJS)
 			$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 
 $(NAME):	$(OBJS)
-			ar -rcs $(NAME) $(OBJS)
-			ranlib $(NAME)
+			@ar -rcs $(NAME) $(OBJS)
+			@ranlib $(NAME)
 
 clean:
-			rm -rf $(OBJS)
-			rm -rf $(DIR_OBJS)
+			@rm -rf $(OBJS)
+			@rm -rf $(DIR_OBJS)
 
 fclean:		clean
-			rm -rf $(NAME)
+			@rm -rf $(NAME)
 
 re:			fclean all
 

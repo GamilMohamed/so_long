@@ -6,7 +6,7 @@
 /*   By: mgamil <mgamil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 15:14:30 by mgamil            #+#    #+#             */
-/*   Updated: 2022/11/21 08:33:20 by mgamil           ###   ########.fr       */
+/*   Updated: 2022/11/23 03:29:14 by mgamil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,12 @@ int	ft_checklenmap(int fd, t_map *map)
 	char		*s;
 
 	i = 0;
-	map->y = 0;
 	s = get_next_line(fd);
-	map->x = ft_strlen(s);
-	if (ft_checkline(s))
-	{
-		free(s);
+	if (!s)
 		return (0);
-	}
+	map->x = ft_strlen(s);
+	if (ft_checkline(s) || map->x < 5)
+		return (ft_freenret(s));
 	while (s)
 	{
 		len = ft_strlen(s);
@@ -50,10 +48,7 @@ int	ft_checklenmap(int fd, t_map *map)
 		map->y++;
 	}
 	if (len + 1 != map->x || ft_checkline(s))
-	{
-		free(s);
-		return (0);
-	}
+		return (ft_freenret(s));
 	map->y++;
 	free(s);
 	return (1);
@@ -65,14 +60,14 @@ char	**ft_create_tab(int x, int y, int fd)
 	char	*s;
 	int		i;
 
-	i = 0;
+	i = -1;
 	tab = malloc(sizeof(char *) * (y + 1));
 	if (!tab)
 	{
 		ft_freeloop(tab);
 		return (NULL);
 	}
-	while (i < y)
+	while (++i < y)
 	{
 		tab[i] = malloc(sizeof(char) * (x));
 		if (!tab[i])
@@ -83,7 +78,6 @@ char	**ft_create_tab(int x, int y, int fd)
 		s = get_next_line(fd);
 		ft_strlcpy(tab[i], s, x);
 		free(s);
-		i++;
 	}
 	tab[i] = 0;
 	return (tab);
@@ -97,7 +91,11 @@ int	ft_checktab(char **tab, t_map *map, int (*count)[3])
 	while (++i < (map->x * map->y))
 	{
 		if (tab[i / map->x][i % map->x] == EXIT)
+		{
+			map->posey = i / map->x;
+			map->posex = i % map->x;
 			(*count)[0]++;
+		}
 		else if (tab[i / map->x][i % map->x] == COLLECT)
 			(*count)[1]++;
 		else if (tab[i / map->x][i % map->x] == PLAYER)
@@ -121,10 +119,7 @@ int	ft_checkmap(char *ber, t_map *map, int (*count)[3], char ***tab)
 	fd = open(ber, O_RDONLY);
 	(*tab) = ft_create_tab(map->x, map->y, fd);
 	if (!*tab)
-	{
-		ft_printf("sal");
 		return (ft_error(ft_freeloop((*tab)) + 1));
-	}
 	if (ft_checktab((*tab), map, count) == 0)
 		return (ft_error(ft_freeloop((*tab)) + 1));
 	if ((*count)[0] == 1 && (*count)[1] > 0 && (*count)[2] == 1)
