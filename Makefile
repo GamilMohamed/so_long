@@ -33,7 +33,7 @@ MLX_FLAGS		=	-lm -lmlx -lXext -lX11
 
 HEAD			=	-I includes
 
-CC				=cc
+CC				=	cc
 
 CFLAGS			=	-Wall -Werror -Wextra
 
@@ -42,15 +42,15 @@ all				:	${NAME}
 $(NAME): $(OBJS) ${OBJS_GNL}
 	@make -C libft
 	@make -C ft_printf
-	@cp libft/libft.a .
-	@cp ft_printf/libftprintf.a .
+	@mv libft/libft.a .
+	@mv ft_printf/libftprintf.a .
 	cc $(OBJS) ${OBJS_GNL} mlx/libmlx.a mlx/libmlx_Linux.a -L. -lXext -L. -lX11 ${LIBFT} ${PRINTF} -o $(NAME)
 
 bonus			: ${OBJS_GNL} ${OBJS_BONUS}
 	@make -C libft
 	@make -C ft_printf
-	@cp libft/libft.a .
-	@cp ft_printf/libftprintf.a .
+	@mv libft/libft.a .
+	@mv ft_printf/libftprintf.a .
 	cc ${OBJS_GNL} ${OBJS_BONUS} mlx/libmlx.a mlx/libmlx_Linux.a -L. -lXext -L. -lX11 ${LIBFT} ${PRINTF} -o $(NAME)
 
 clean			:
@@ -67,4 +67,4 @@ fclean			:	clean
 
 re				:	fclean all
 
-.PHONY			:	all clean fclean re
+.PHONY			:	all clean fclean re bonus
