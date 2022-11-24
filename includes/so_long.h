@@ -6,7 +6,7 @@
 /*   By: mgamil <mgamil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 15:18:12 by mgamil            #+#    #+#             */
-/*   Updated: 2022/11/23 20:36:54 by mgamil           ###   ########.fr       */
+/*   Updated: 2022/11/23 21:05:22 by mgamil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,18 @@
 # define ESC 65307
 
 typedef struct s_map {
-	int	x;
-	int	y;
-	int pospx;
-	int pospy;
-	int posex;
-	int posey;
-	int cond;
-	int	num;
-	char **tab;
-	int c_count;
-	int	count[3];
-	int keycount;
+	int		x;
+	int		y;
+	int		pospx;
+	int		pospy;
+	int		posex;
+	int		posey;
+	int		cond;
+	int		num;
+	char	**tab;
+	int		c_count;
+	int		count[3];
+	int		keycount;
 
 }				t_map;
 
@@ -64,7 +64,6 @@ typedef struct s_data {
 	int		height;
 	t_map	point;
 }				t_data;
-
 
 int		ft_freeloop(char **tab);
 int		ft_checkline(char *s);
@@ -89,19 +88,15 @@ void	ft_fillmap(char ***tab, t_map *map, t_data *data);
 void	ft_fillstats(t_map *map, t_data *data);
 
 int		ft_toimage(t_data *data);
-void 	ft_get_p(t_map *map);
+void	ft_get_p(t_map *map);
 int		ft_freemlx(t_data *data);
 int		ft_freenret(void *p);
-void 	ft_void(t_map *map, t_data *data);
+void	ft_void(t_map *map, t_data *data);
 void	ft_portal(t_data *data);
 void	ft_putnbr_sprite(int nb, t_data *data, t_map *map);
 void	ft_numbers(t_data *data);
 int		ft_checkimg(t_data *data);
 int		ft_close(t_data *data);
-
-
-
-
 
 #endif
 
